@@ -59,7 +59,7 @@ export default function SignUp({ setCheckType }: SignUpProps) {
 
       router.push("/");
       console.log(res.data, "create success");
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         console.log(err.response?.data, "error response");
         setErrorMessage(err.response?.data?.errors || err.response?.data?.message || "Registration failed");
