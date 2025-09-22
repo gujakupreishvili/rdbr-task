@@ -10,6 +10,7 @@ type Props = {
   iconStyle?: string
   isSelected?: boolean 
   onClick?: () => void     
+  disabled?: boolean; 
 }
 
 export default function Button({ 
@@ -20,13 +21,14 @@ export default function Button({
   pTagStyle, 
   iconStyle, 
   isSelected = false, 
-  onClick 
+  onClick ,
+  disabled = false 
 }: Props) {
   return (
     <button
-      onClick={onClick}
+    onClick={disabled ? undefined : onClick} 
       className={`
-        cursor-pointer
+         ${disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer"}
         ${className}
         ${isSelected ? "bg-[#E3E8EF]" : ""}
       `}
