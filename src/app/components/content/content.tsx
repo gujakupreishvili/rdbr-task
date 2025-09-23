@@ -127,6 +127,10 @@ export default function Content() {
     router.replace(`?${query.toString()}`);
   }, [currentPage, buttonCount, sortOption]);
 
+  const handleClick = (productId: number) => {
+    router.push(`/productabout/${productId}`); 
+  }
+
   return (
     <div className="flex flex-col px-[100px] mt-[72px] ">
       <div className="flex items-center justify-between">
@@ -226,7 +230,8 @@ export default function Content() {
             {products.map((item) => (
               <div
                 key={item.id}
-                className="max-w-[412px] w-full flex flex-col gap-[12px] mb-[48px]"
+                onClick={() => handleClick(item.id)}
+                className="max-w-[399px] w-full flex flex-col gap-[12px] mb-[48px] cursor-pointer"
               >
                 <div className="w-full h-[549px] relative rounded-[8px] shadow-md shadow-gray-500">
                   <Image
