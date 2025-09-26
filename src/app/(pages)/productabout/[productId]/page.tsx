@@ -9,6 +9,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import whiteBasketIcon from "../../../../../public/assets/contentImgs/whitebasketIcon.svg";
 import Select from "@/app/components/select/select";
+import { getCookie } from "cookies-next";
+import BasketComponent from "@/app/components/basketComponent/basketComponent";
 
 type Brand = {
   id: number;
@@ -41,7 +43,8 @@ export default function Page() {
 
   const [data, setData] = useState<Product | null>(null);
 
-  // states
+  const [checkBasket, setCheckBasket] = useState(false);
+
   const [selectedColor, setSelectedColor] = useState<string | null>(
     searchParams.get("color") || null
   );
@@ -66,6 +69,13 @@ export default function Page() {
       if (!selectedColor && product.available_colors.length > 0) {
         setSelectedColor(product.available_colors[0]);
       }
+
+
+      if (!selectSize && product.available_sizes.length > 0) {
+        setSelectSize(product.available_sizes[0]);
+      }
+
+   
       if (!selectedImage && product.images.length > 0) {
         setSelectedImage(product.images[0]);
       }
@@ -74,17 +84,56 @@ export default function Page() {
     }
   };
 
-
   useEffect(() => {
+    const saved = localStorage.getItem("checkBasket");
+    if (saved) {
+      setCheckBasket(JSON.parse(saved));
+    }
     const query = new URLSearchParams();
     if (selectedColor) query.set("color", selectedColor);
     if (selectSize) query.set("size", selectSize);
     query.set("quantity", String(quantity));
     router.replace(`?${query.toString()}`);
-  
 
     getData(selectedColor || "", selectSize || "", quantity);
   }, [selectedColor, selectSize, quantity]);
+
+  const token = getCookie("accessToken");
+  const addToBasket = async () => {
+    if (!token) {
+      router.push("/auth");
+      return;
+    }
+
+    if (!selectedColor || !selectSize) {
+      alert("Please select color and size");
+      return;
+    }
+
+    try {
+      const values = {
+        color: selectedColor,
+        size: selectSize,
+        quantity,
+      };
+
+      const res = await axios.post(
+        `https://api.redseam.redberryinternship.ge/api/cart/products/${productId}`,
+        values,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCheckBasket(true);
+      console.log("added to basket ", res.data);
+    } catch (error) {
+      console.error("error adding to basket ", error);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("checkBasket", JSON.stringify(checkBasket));
+  }, [checkBasket]);
 
   return (
     <>
@@ -114,7 +163,7 @@ export default function Page() {
                     }
                   }}
                   className={`w-[121px] h-[161px] shadow-2xl shadow-gray-300 cursor-pointer rounded ${
-                    selectedImage === img ? "border-2 border-black" : ""
+                    selectedImage === img ? "" : ""
                   }`}
                 />
               ))}
@@ -128,7 +177,6 @@ export default function Page() {
             />
           </div>
 
-
           <div className="flex flex-col gap-[56px] w-[704px]">
             <div className="flex flex-col gap-[21px]">
               <h1 className="text-[#10151F] text-[32px] font-poppins font-semibold capitalize">
@@ -138,7 +186,6 @@ export default function Page() {
                 ${data.price}
               </p>
             </div>
-
 
             <SelectColor
               data={data}
@@ -164,6 +211,7 @@ export default function Page() {
             </div>
 
             <Button
+              onClick={addToBasket}
               Img={whiteBasketIcon}
               text="Add to cart"
               className="w-full bg-[#FF4000] h-[59px] flex items-center justify-center gap-[10px] text-[18px] font-poppins text-white font-medium rounded-[10px]"
@@ -195,6 +243,7 @@ export default function Page() {
           </div>
         </div>
       )}
+      {checkBasket && <BasketComponent setCheckBasket={setCheckBasket} />}
     </>
   );
 }
