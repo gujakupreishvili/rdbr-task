@@ -32,6 +32,7 @@ export default function SignIn({ setCheckType }: SignInProps) {
       );
       const accessToken = res.data.token;
       setCookie("accessToken", accessToken, { maxAge: 60 * 60 });
+      setCookie("email", values.email, { maxAge: 60 * 60 });
       router.push("/");
       console.log(res);
     } catch (error) {

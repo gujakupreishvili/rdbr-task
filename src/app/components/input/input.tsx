@@ -36,24 +36,28 @@ export default function Input({
           ` peer  border-[1px] outline-none px-[12px] text-[14px] text-[#3E424A] font-poppins font-medium py-[10.5px] w-full rounded-[8px] placeholder:text-[#3E424A] placeholder:font-poppins placeholder:font-normal`
         } ${borderClass}`}
       />
-      <label
-        htmlFor={name}
-        className={`absolute 
-      left-[12px] 
-      top-[10px]
-      bg-white
-      transition-all 
-      duration-300 
-      pointer-events-none
-      peer-focus:top-[-12px] 
-      peer-not-placeholder-shown:top-[-12px]
-      text-[#3E424A]
-      font-poppins
-      font-normal
-      ${labelClass}`}
-      >
+      {lableTxt &&
+      (
+        <label
+          htmlFor={name}
+          className={`absolute 
+        left-[12px] 
+        top-[10px]
+        bg-white
+        transition-all 
+        duration-300 
+        pointer-events-none
+        peer-focus:top-[-12px] 
+        peer-not-placeholder-shown:top-[-12px]
+        text-[#3E424A]
+        font-poppins
+        font-normal
+        ${labelClass}`}
+        >
         {lableTxt} <span className="text-red-500"> *</span>
-      </label>
+      </label>    
+      )
+      }
       <ErrorMessage name={name}>
         {(msg) => <TextError>{msg}</TextError>}
       </ErrorMessage>
