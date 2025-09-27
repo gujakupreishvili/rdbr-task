@@ -56,6 +56,7 @@ export default function SignUp({ setCheckType }: SignUpProps) {
       setCookie("accessToken", token, { maxAge: 60 * 60 });
 
       if (user.avatar) setCookie("avatar", user.avatar, { maxAge: 60 * 60 });
+      setCookie("email", user.email || values.email, { maxAge: 60 * 60 });
 
       router.push("/");
       console.log(res.data, "create success");
