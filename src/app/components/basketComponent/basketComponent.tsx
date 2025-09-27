@@ -41,19 +41,19 @@ export type Product = {
 export default function BasketComponent({ setCheckBasket }: BasketProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
   const token = getCookie("accessToken") as string;
   const router = useRouter()
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      setError(null);
+      // setError(null);
       const data = await getData(token);
       setProducts(data);
     } catch (err) {
       console.error(err);
-      setError("Failed to load cart items");
+      // setError("Failed to load cart items");
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,8 @@ export default function BasketComponent({ setCheckBasket }: BasketProps) {
       );
       await deleteItem(token, id, color, size);
     } catch (err) {
-      setError("Failed to remove item");
+      console.log(err)
+      // setError("Failed to remove item");
       fetchData();
     }
   };
@@ -96,6 +97,10 @@ export default function BasketComponent({ setCheckBasket }: BasketProps) {
   };
   const gotoShooping = () => {
     router.push("/")
+    setCheckBasket(false)
+  }
+  const gotoCheckout = () => {
+    router.push("/checkout")
     setCheckBasket(false)
   }
 
@@ -168,7 +173,7 @@ export default function BasketComponent({ setCheckBasket }: BasketProps) {
           </div>
         </div>
         {products.length !== 0 && (
-          <BasketSum total={total} subtotal={subtotal} />
+          <BasketSum total={total} subtotal={subtotal} click={gotoCheckout} text="Go to checkout" />
         )}
       </div>
     </div>
