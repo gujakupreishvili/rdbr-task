@@ -33,6 +33,8 @@ type SignUpProps = {
 
 export default function SignUp({ setCheckType }: SignUpProps) {
   const [checkPassword, setCheckPassword] = useState(false);
+  const [checkConfrimPassword , setCheckConfrimPassword] = useState (false)
+
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | Record<string, string[]>>("");
 
@@ -142,7 +144,7 @@ export default function SignUp({ setCheckType }: SignUpProps) {
               <Input
                 placeholder=""
                 lableTxt="Confirm Password"
-                type={!checkPassword ? "password" : "text"}
+                type={!checkConfrimPassword ? "password" : "text"}
                 name="password_confirmation"
                 error={errors.password_confirmation}
                 touched={touched.password_confirmation}
@@ -151,7 +153,7 @@ export default function SignUp({ setCheckType }: SignUpProps) {
               <Image
                 src={eyeIcon}
                 alt="eye icon"
-                onClick={() => setCheckPassword(!checkPassword)}
+                onClick={() => setCheckConfrimPassword(!checkConfrimPassword)}
                 className="absolute right-[12px] top-[14px] cursor-pointer"
               />
             </div>
