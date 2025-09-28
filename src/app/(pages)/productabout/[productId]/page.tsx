@@ -214,6 +214,11 @@ export default function Page() {
               onClick={addToBasket}
               Img={whiteBasketIcon}
               text="Add to cart"
+              disabled={
+                !data || 
+                !data.available_sizes || data.available_sizes.length === 0 || 
+                !data.available_colors || data.available_colors.length === 0
+              }
               className="w-full bg-[#FF4000] h-[59px] flex items-center justify-center gap-[10px] text-[18px] font-poppins text-white font-medium rounded-[10px]"
             />
 
