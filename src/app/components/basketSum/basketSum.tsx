@@ -6,6 +6,7 @@ type BasketSumProps = {
   total: number;
   click?: () => void;
   text: string;
+  className?: string 
 };
 
 export default function BasketSum({
@@ -13,6 +14,7 @@ export default function BasketSum({
   total,
   click,
   text,
+  className
 }: BasketSumProps) {
   return (
     <div className="flex flex-col w-full items-center gap-[16px]">
@@ -39,7 +41,7 @@ export default function BasketSum({
       <Button
         onClick={click}
         text={text}
-        className="rounded-[10px] mt-[86px] text-[18px] text-white font-poppins font-medium w-full h-[59px] bg-[#FF4000] hover:bg-[#E53900] transition-colors disabled:opacity-50"
+        className={className}
       />
     </div>
   );

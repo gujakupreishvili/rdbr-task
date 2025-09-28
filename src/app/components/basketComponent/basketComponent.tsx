@@ -173,7 +173,7 @@ export default function BasketComponent({ setCheckBasket }: BasketProps) {
           </div>
         </div>
         {products.length !== 0 && (
-          <BasketSum total={total} subtotal={subtotal} click={gotoCheckout} text="Go to checkout" />
+          <BasketSum total={total} subtotal={subtotal} click={gotoCheckout} text="Go to checkout" className="rounded-[10px] mt-[86px] text-[18px] text-white font-poppins font-medium w-full h-[59px] bg-[#FF4000] hover:bg-[#E53900] transition-colors disabled:opacity-50" />
         )}
       </div>
     </div>

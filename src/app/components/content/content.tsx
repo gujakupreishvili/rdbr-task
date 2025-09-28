@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import FilterPrice from "../filterPrice/filterPrice";
 import removeIcon from "../../../../public/assets/contentImgs/remove.svg";
 import Sort from "../sort/sort";
+import { MoonLoader } from "react-spinners";
 
 type productsType = {
   id: number;
@@ -290,7 +291,8 @@ export default function Content() {
         </>
       ) : (
         <div className="w-full h-[80vh] flex items-center justify-center">
-          <p className="text-[22px] font-semibold font-poppins">No result</p>
+          {/* <p className="text-[22px] font-semibold font-poppins">No result</p> */}
+          <MoonLoader />
         </div>
       )}
     </div>

@@ -138,25 +138,27 @@ export default function Checkout() {
   return (
     <>
       {congrats ? (
-        <div className="flex flex-col items-center justify-center w-full h-screen">
-          <Image
-            onClick={gotoShopping}
-            src={removeIcon}
-            alt="remove"
-            className="absolute right-[30px] top-[50px] w-[45px] h-[45px] cursor-pointer"
-          />
-          <Image src={checkPoint} alt="" className="w-[76px] h-[76px]" />
-          <h1 className="text-[42px] font-poppins font-semibold text-[#10151F] pt-[40px] pb-[16px]">
-            Congrats!
-          </h1>
-          <p className="text-[14px] text-[#3E424A] font-poppins font-normal pb-[74px]">
-            Your order is placed successfully!
-          </p>
-          <Button
-            onClick={gotoShopping}
-            text="Continue shopping"
-            className="w-[214px] h-[41px] bg-[#FF4000] rounded-[10px] text-[14px] text-white font-poppins font-normal"
-          />
+        <div className="fixed inset-0 flex flex-col items-center justify-center w-full h-screen bg-black/20 backdrop-blur-sm">
+          <div className="relative flex flex-col w-[876px] h-[590px] justify-center items-center bg-white rounded-[12px]">
+            <Image
+              onClick={gotoShopping}
+              src={removeIcon}
+              alt="remove"
+              className="absolute right-[30px] top-[50px] w-[45px] h-[45px] cursor-pointer"
+            />
+            <Image src={checkPoint} alt="" className="w-[76px] h-[76px]" />
+            <h1 className="text-[42px] font-poppins font-semibold text-[#10151F] pt-[40px] pb-[16px]">
+              Congrats!
+            </h1>
+            <p className="text-[14px] text-[#3E424A] font-poppins font-normal pb-[74px]">
+              Your order is placed successfully!
+            </p>
+            <Button
+              onClick={gotoShopping}
+              text="Continue shopping"
+              className="w-[214px] h-[41px] bg-[#FF4000] rounded-[10px] text-[14px] text-white font-poppins font-normal"
+            />
+          </div>
         </div>
       ) : (
         <>
@@ -188,6 +190,7 @@ export default function Checkout() {
                         <p className="pb-[46px]">Order details</p>
                         <div className="w-[578px] flex flex-col gap-[33px]">
                           <div className="flex items-center w-full gap-[24px]">
+                            <div className="h-[42px]">
                             <Input
                               placeholder="Name"
                               name="name"
@@ -196,6 +199,8 @@ export default function Checkout() {
                               error={errors.name}
                               touched={touched.name}
                             />
+                            </div>
+                            <div className="h-[42px]">
                             <Input
                               placeholder="Surname"
                               name="surname"
@@ -204,9 +209,11 @@ export default function Checkout() {
                               error={errors.surname}
                               touched={touched.surname}
                             />
+                            </div>
                           </div>
 
                           <div className="h-[42px] relative">
+                            <div className="h-[42px]">
                             <Input
                               placeholder="Email"
                               name="email"
@@ -220,9 +227,11 @@ export default function Checkout() {
                               alt="emailIcon"
                               className="absolute top-[12px] left-[11px]"
                             />
+                            </div>
                           </div>
 
                           <div className="flex items-center w-full gap-[24px]">
+                            <div className="h-[42px]">
                             <Input
                               placeholder="Address"
                               name="address"
@@ -231,6 +240,8 @@ export default function Checkout() {
                               error={errors.address}
                               touched={touched.address}
                             />
+                            </div>
+                            <div className="h-[42px]">
                             <Input
                               placeholder="Zip Code"
                               name="zip_code"
@@ -239,6 +250,7 @@ export default function Checkout() {
                               error={errors.zip_code}
                               touched={touched.zip_code}
                             />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -259,6 +271,7 @@ export default function Checkout() {
                             total={total}
                             subtotal={subtotal}
                             text="Pay"
+                            className="rounded-[10px] mt-[60px] text-[18px] text-white font-poppins font-medium w-full h-[59px] bg-[#FF4000] hover:bg-[#E53900] transition-colors disabled:opacity-50" 
                           />
                         </div>
                       ) : (
