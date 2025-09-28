@@ -1,12 +1,12 @@
 "use client";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import React, { useState } from "react";
 import Input from "../input/input";
 import { SignInValidationSchema } from "@/app/utils/validation/signInValidationSchema";
 import eyeIcon from "../../../../public/assets/authImgs/eye.svg";
 import Image from "next/image";
 import Button from "../button/button";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function SignIn({ setCheckType }: SignInProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
 
-  const onSubmit = async (values: SignIntypes, { setErrors }: any) => {
+  const onSubmit = async (values: SignIntypes,  { setErrors }: FormikHelpers<SignIntypes>) => {
     try {
       const res = await axios.post(
         "https://api.redseam.redberryinternship.ge/api/login",
